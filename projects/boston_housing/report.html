@@ -11959,9 +11959,9 @@ Standard deviation of prices: $165,171.13
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ul>
-<li>Increasing the <code>'RM'</code> value (number of rooms) would most likely increase the value of <code>'MEDV'</code></li>
-<li>Increasing the <code>'LSTAT'</code> value (percent of lower class workers) would most likely decrease the value of <code>'MEDV'</code></li>
-<li>Increasing the <code>'PTRATIO'</code> value (ratio of students to teachers) would most likely decrease the value of <code>'MEDV'</code></li>
+<li>Increasing the <code>'RM'</code> value (number of rooms) would most likely increase the value of <code>'MEDV'</code>. Typically the greater number of rooms increases property value.</li>
+<li>Increasing the <code>'LSTAT'</code> value (percent of lower class workers) would most likely decrease the value of <code>'MEDV'</code>. If there are more lower class workers in the property neighborhood, that neighborhood is less desirable and the property value will most likely decrease.</li>
+<li>Increasing the <code>'PTRATIO'</code> value (ratio of students to teachers) would most likely decrease the value of <code>'MEDV'</code>. Prominent school districts typically have lower student to teacher ratios. Increasing this value points to a decrease in the quality of the school district and the associated residential property value in that school district.</li>
 </ul>
 
 </div>
@@ -13822,7 +13822,8 @@ In machine learning, a grid search technique is used to find the best hyper-para
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> K-fold cross-validation is used during training by seperating the training dataset into 'k' smaller sets, where one of these sets is used for validation and the others are used for training. This process is then repeated k times, using each of the smaller sets as the validation set. The average score of loop results is then used. In grid search, this method allows for better use of the training data because none of the data is solely used for validation.</p>
+<p><strong>Answer: </strong> K-fold cross-validation is used during training by seperating the training dataset into 'k' smaller sets, where one of these sets is used for validation and the others are used for training. This process is then repeated k times, using each of the smaller sets as the validation set. The average score of loop results is then used.</p>
+<p>In grid search, this method allows for better use of the training data because none of the data is solely used for validation. If only one training and one testing set are used, the output model can be highly dependent on which values get placed in the training and testing bins. K-fold cross-validation takes this out of account because all the data is used for training and testing at least once leading to a more robust output that best generalizes the whole dataset.</p>
 
 </div>
 </div>
@@ -14066,7 +14067,7 @@ The price recommended for each client is:</p>
 <li><p>Client 3: $931,636.36</p>
 </li>
 </ul>
-<p>The predicted home prices for each client seems reasonable based on the data provided for these three homes. In the data exploration section, it was noted that a greater number of rooms, low poverty rates, and low student to teacher ratio all contibute to a higher home value. For these three clients, this can be seen because the biggest house with the best schools and lowest poverty level had the highest predicted value (Client 3), and the smallest house with the worst schools and highest poverty level had the lowest predicted value (Client 2).</p>
+<p>The predicted home prices for each client seems reasonable based on the data provided for these three homes. In the data exploration section, it was noted that a greater number of rooms, low poverty rates, and low student to teacher ratio all contibute to a higher home value. For these three clients, this can be seen because the biggest house with the best schools and lowest poverty level had the highest predicted value (Client 3), the smallest house with the worst schools and highest poverty level had the lowest predicted value (Client 2), and the client with feature values between Client 3 and Client 2 (Client 1) had a predicted value between Client 3 and Client 2.</p>
 
 </div>
 </div>
