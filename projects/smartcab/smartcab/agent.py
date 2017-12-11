@@ -1,4 +1,5 @@
 import random
+import numpy as np
 import math
 from environment import Agent, Environment
 from planner import RoutePlanner
@@ -18,14 +19,14 @@ class LearningAgent(Agent):
         self.Q = dict()          # Create a Q-table which will be a dictionary of tuples
         self.epsilon = epsilon   # Random exploration factor
         self.alpha = alpha       # Learning factor
-
+        self.trial = 0
         ###########
         ## TO DO ##
         ###########
         # Set any additional class parameters as needed
 
 
-    def reset(self, trial=0, destination=None, testing=False):
+    def reset(self, destination=None, testing=False):
         """ The reset function is called at the beginning of each trial.
             'testing' is set to True if testing trials are being used
             once training trials have completed. """
@@ -42,8 +43,11 @@ class LearningAgent(Agent):
         if testing == True:
             self.epsilon = 0
         else:
-            # self.epsilon = 1000*math.exp(-self.alpha*trial)
-            self.epsilon = self.epsilon -   0.01
+            self.epsilon = math.exp((-0.00001)*(self.trial)**2)
+            print(math.exp(-0.005*self.trial**2))
+            # self.epsilon = self.epsilon -   0.001
+
+        self.trial = self.trial + 1
 
         return None
 
@@ -82,13 +86,20 @@ class LearningAgent(Agent):
         # Calculate the maximum Q-value of all actions for a given state
         
         actions = self.Q[state]
-        maxQ = 0.0
-        maxQ_action = None
+        Q = np.array([])
+        Q_action = np.array([])
         
         for action in actions:
-            if self.Q[state][action] > maxQ:
-                maxQ = self.Q[state][action]
-                maxQ_action = action
+            Q_action = np.append(Q_action, action)
+            Q = np.append(Q, self.Q[state][action])
+
+        maxQ = np.amax(Q)
+        maxQ_array = np.array([])
+        for i in range(0,len(Q)):
+            if Q[i] == maxQ:
+                maxQ_array = np.append(maxQ_array, i)
+        maxQ = random.choice(maxQ_array)
+        maxQ_action = Q_action[maxQ]
 
         return maxQ_action
 
@@ -125,7 +136,6 @@ class LearningAgent(Agent):
         # When learning, choose a random action with 'epsilon' probability
         # Otherwise, choose an action with the highest Q-value for the current state
         # Be sure that when choosing an action with highest Q-value that you randomly select between actions that "tie".
-        import random
 
         if self.learning == False:
             action = random.sample((self.valid_actions), 1)[0]
@@ -210,7 +220,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10, tolerance=0.01)
+    sim.run(n_test=30, tolerance=0.01)
 
 
 if __name__ == '__main__':
